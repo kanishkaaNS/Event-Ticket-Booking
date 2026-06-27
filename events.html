@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Events | OVATION</title>
+  <meta name="description" content="Browse and book tickets to every event — music, sports, comedy, arts and more." />
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body class="bg-background">
+
+  <!-- Shared Header injected here -->
+  <div id="header-container"></div>
+
+  <main class="min-h-screen">
+    <!-- HERO HEADER -->
+    <section class="border-b border-border">
+      <div class="container pb-12 pt-32 md:pt-40" data-reveal>
+        <p class="text-sm uppercase tracking-label text-muted">Explore</p>
+        <h1 class="mt-3 text-balance font-display text-5xl text-foreground md:text-6xl">
+          All events
+        </h1>
+        <p class="mt-4 max-w-xl text-pretty text-muted">
+          Every show, game, and gathering in one place. Filter by category to find your night.
+        </p>
+      </div>
+    </section>
+
+    <!-- EVENTS BROWSER -->
+    <section class="container py-12 md:py-16">
+      
+      <!-- Filter Bar -->
+      <div class="filter-bar" id="events-filter-bar">
+        <!-- Buttons injected by JS -->
+      </div>
+
+      <p class="filter-count" id="events-count">
+        <!-- Count injected by JS -->
+      </p>
+
+      <!-- Events Grid -->
+      <div id="events-grid-container">
+        <div class="events-grid" id="events-grid">
+          <!-- Event cards injected by JS -->
+        </div>
+        <div class="no-events-msg hidden" id="no-events-msg">
+          No events in this category yet. Check back soon.
+        </div>
+      </div>
+      
+    </section>
+  </main>
+
+  <!-- Shared Footer injected here -->
+  <div id="footer-container"></div>
+  
+  <!-- Floating Nav injected here -->
+  <div id="floating-nav-container"></div>
+
+  <!-- Scripts -->
+  <!-- GSAP & Plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis -->
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  
+  <!-- App Logic -->
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/events.js"></script>
+</body>
+</html>

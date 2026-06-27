@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event | OVATION</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body class="bg-background">
+
+  <!-- Shared Header injected here -->
+  <div id="header-container"></div>
+
+  <main class="min-h-screen">
+    
+    <div id="event-content-container">
+      <!-- Loading State / Content will be injected here -->
+      <div class="container py-32 text-center text-muted">
+        Loading event details...
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Shared Footer injected here -->
+  <div id="footer-container"></div>
+  
+  <!-- Floating Nav injected here -->
+  <div id="floating-nav-container"></div>
+
+  <!-- Scripts -->
+  <!-- GSAP & Plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis -->
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  
+  <!-- App Logic -->
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/event-detail.js"></script>
+</body>
+</html>
