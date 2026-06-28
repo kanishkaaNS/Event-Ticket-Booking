@@ -74,6 +74,16 @@ class CartManager {
         const event = window.OvationData.getEvent(line.eventSlug);
         if (!event) return null;
 
+        if (line.isSeatBooking) {
+          return {
+            ...line,
+            eventTitle: event.title,
+            eventImage: event.image,
+            eventDate: event.date,
+            quantity: Math.max(1, Math.min(Number(line.quantity) || 1, 8)),
+          };
+        }
+
         const tier = event.tiers.find(t => t.id === line.tierId);
         if (!tier) return null;
 

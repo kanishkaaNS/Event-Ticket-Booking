@@ -26,7 +26,7 @@ const Components = {
     const cityOptions = window.OvationData
       ? window.OvationData.POPULAR_CITIES.map(city => `<option value="${city}" ${city === selectedCity ? "selected" : ""}>${city}</option>`).join("")
       : "";
-    
+
     return `
       <header class="${headerClass}" id="main-header">
         <div class="site-header__inner">
@@ -80,7 +80,7 @@ const Components = {
   // Render the footer
   renderFooter() {
     const categories = window.OvationData ? window.OvationData.CATEGORIES : ["Music", "Comedy", "Arts", "Food", "Sports", "Movies"];
-    
+
     const categoryLinks = categories.map(c => `
       <li>
         <a href="events.html?category=${c}" class="site-footer__link">${c}</a>
@@ -127,7 +127,7 @@ const Components = {
   // Render floating nav
   renderFloatingNav(activePath = '/') {
     const cartCount = window.OvationCart.itemCount;
-    
+
     return `
       <div class="floating-nav-wrapper" id="floating-nav-wrapper">
         <nav class="floating-nav" id="floating-nav">
@@ -300,7 +300,7 @@ const Components = {
     // 4. Setup Header logic
     this.setupHeader(opts.overlayHeader);
     this.setupCityControls();
-    
+
     // 5. Setup Floating Nav logic
     this.setupFloatingNav();
 
@@ -333,7 +333,7 @@ const Components = {
           header.classList.remove('site-header--solid', 'site-header--dark');
         }
       };
-      
+
       window.addEventListener('scroll', handleScroll, { passive: true });
       handleScroll(); // Init
     }
@@ -434,7 +434,7 @@ const Components = {
 
   setupCartListeners() {
     if (!window.OvationCart) return;
-    
+
     window.OvationCart.subscribe((cart) => {
       const count = cart.itemCount;
       const headerBadge = document.getElementById('header-cart-badge');
@@ -448,7 +448,7 @@ const Components = {
       if (floatBadge) {
         floatBadge.style.display = count > 0 ? 'flex' : 'none';
         floatBadge.textContent = count;
-        
+
         // Pop animation if gsap available
         if (count > 0 && window.gsap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
           gsap.fromTo(
@@ -482,7 +482,7 @@ const Components = {
               img.classList.add('is-loaded');
               img.closest('.fade-image-wrap')?.classList.add('image-is-loaded');
             };
-            
+
             // Wait for load if not already complete
             if (img.complete && img.naturalWidth > 0) {
               markLoaded();
@@ -490,7 +490,7 @@ const Components = {
               img.onload = markLoaded;
               img.onerror = markLoaded;
             }
-            
+
             observer.unobserve(img);
           }
         });

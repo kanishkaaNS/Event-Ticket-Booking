@@ -150,6 +150,18 @@ function renderTicketSelector() {
   const container = document.getElementById('ticket-selector-container');
   if (!container || !eventData) return;
 
+  if (eventData.category === 'Movies') {
+    container.innerHTML = `
+      <div class="ticket-selector__header">
+        <h2 class="ticket-selector__title">Book Tickets</h2>
+      </div>
+      <div class="p-5" style="padding: 1.5rem;">
+        <button type="button" class="btn btn--primary btn--full" onclick="openTheatreModal()">Book Now</button>
+      </div>
+    `;
+    return;
+  }
+
   const total = eventData.tiers.reduce((sum, t) => sum + (quantities[t.id] || 0) * t.price, 0);
   const count = eventData.tiers.reduce((sum, t) => sum + (quantities[t.id] || 0), 0);
   
@@ -254,3 +266,93 @@ window.handleAdd = function(goToCheckout) {
     renderTicketSelector();
   }
 };
+
+// --- THEATRE SELECTION LOGIC ---
+const THEATRES = [
+  {
+    name: "PVR Orion Mall",
+    timings: ["11:00 AM", "4:00 PM", "9:00 PM"]
+  },
+  {
+    name: "INOX Forum Mall",
+    timings: ["9:00 AM", "6:00 PM", "10:00 PM"]
+  },
+  {
+    name: "Cinepolis Nexus Mall",
+    timings: ["12:30 PM", "5:30 PM", "8:30 PM"]
+  }
+];
+
+window.openTheatreModal = function() {
+  let modal = document.getElementById('theatre-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'theatre-modal';
+    modal.className = 'theatre-modal-overlay';
+    
+    let theatresHtml = THEATRES.map((t, tIndex) => `
+      <div class="theatre-card">
+        <h3 class="theatre-card__name">${t.name}</h3>
+        <div class="theatre-card__timings">
+          ${t.timings.map((time, timeIndex) => `
+            <button type="button" class="theatre-card__time-btn btn btn--outline" onclick="selectShowtime(${tIndex}, ${timeIndex})">${time}</button>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    modal.innerHTML = `
+      <div class="theatre-modal-content">
+        <div class="theatre-modal-header">
+          <h2>Select Theatre & Showtime</h2>
+          <button type="button" class="theatre-modal-close" onclick="closeTheatreModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+        <div class="theatre-modal-body">
+          ${theatresHtml}
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  
+  // Force reflow for transition
+  modal.offsetHeight;
+  modal.classList.add('is-open');
+};
+
+window.closeTheatreModal = function() {
+  const modal = document.getElementById('theatre-modal');
+  if (modal) modal.classList.remove('is-open');
+};
+
+window.selectShowtime = function(theatreIndex, timeIndex) {
+  const theatre = THEATRES[theatreIndex];
+  const time = theatre.timings[timeIndex];
+  try {
+    if (eventData) {
+      localStorage.setItem('selected_movie', JSON.stringify({
+        slug: eventData.slug,
+        title: eventData.title,
+        city: eventData.city
+      }));
+    }
+    localStorage.setItem('selected_theatre', theatre.name);
+    localStorage.setItem('selected_showtime', time);
+  } catch (e) {
+    console.error("Could not save to localStorage", e);
+  }
+  
+  closeTheatreModal();
+  
+  // Transition into seat selection interface
+  setTimeout(() => {
+    let url = 'seats.html';
+    if (eventData) {
+      url += `?slug=${encodeURIComponent(eventData.slug)}&theatre=${encodeURIComponent(theatre.name)}&time=${encodeURIComponent(time)}`;
+    }
+    window.location.href = url;
+  }, 300);
+};
+

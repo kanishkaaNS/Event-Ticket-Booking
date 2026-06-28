@@ -51,15 +51,21 @@ function initCheckout() {
             <p class="cart-item__meta mt-2">${dateStr.full} · ${line.venue}</p>
             
             <div class="cart-item__controls">
-              <div class="cart-item__qty">
-                <button type="button" class="cart-item__qty-btn" onclick="updateCartLine('${line.eventSlug}', '${line.tierId}', ${line.quantity - 1})" aria-label="Decrease quantity">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon--sm"><path d="M5 12h14"/></svg>
-                </button>
-                <span class="cart-item__qty-value">${line.quantity}</span>
-                <button type="button" class="cart-item__qty-btn" onclick="updateCartLine('${line.eventSlug}', '${line.tierId}', ${line.quantity + 1})" aria-label="Increase quantity">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon--sm"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                </button>
-              </div>
+              ${line.isSeatBooking ? `
+                <div class="cart-item__qty" style="padding: 0 1rem; border: none; background: transparent;">
+                  <span class="cart-item__qty-value text-muted">${line.quantity} ${line.quantity === 1 ? 'ticket' : 'tickets'}</span>
+                </div>
+              ` : `
+                <div class="cart-item__qty">
+                  <button type="button" class="cart-item__qty-btn" onclick="updateCartLine('${line.eventSlug}', '${line.tierId}', ${line.quantity - 1})" aria-label="Decrease quantity">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon--sm"><path d="M5 12h14"/></svg>
+                  </button>
+                  <span class="cart-item__qty-value">${line.quantity}</span>
+                  <button type="button" class="cart-item__qty-btn" onclick="updateCartLine('${line.eventSlug}', '${line.tierId}', ${line.quantity + 1})" aria-label="Increase quantity">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon--sm"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                  </button>
+                </div>
+              `}
               
               <div class="cart-item__price-remove">
                 <span class="cart-item__price">${window.OvationData.formatCurrency(line.price * line.quantity)}</span>
